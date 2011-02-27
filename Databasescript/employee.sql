@@ -1,0 +1,185 @@
+USE [master]
+GO
+IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = N'Employee')
+BEGIN
+CREATE DATABASE [Employee] ON  PRIMARY 
+( NAME = N'Employee', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL.2\MSSQL\DATA\Employee.mdf' , SIZE = 2048KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
+ LOG ON 
+( NAME = N'Employee_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL.2\MSSQL\DATA\Employee_log.ldf' , SIZE = 1024KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
+END
+
+GO
+EXEC dbo.sp_dbcmptlevel @dbname=N'Employee', @new_cmptlevel=90
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [Employee].[dbo].[sp_fulltext_database] @action = 'disable'
+end
+GO
+ALTER DATABASE [Employee] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [Employee] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [Employee] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [Employee] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [Employee] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [Employee] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [Employee] SET AUTO_CREATE_STATISTICS ON 
+GO
+ALTER DATABASE [Employee] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [Employee] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [Employee] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [Employee] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [Employee] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [Employee] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [Employee] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [Employee] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [Employee] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [Employee] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [Employee] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [Employee] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [Employee] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [Employee] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [Employee] SET  READ_WRITE 
+GO
+ALTER DATABASE [Employee] SET RECOVERY FULL 
+GO
+ALTER DATABASE [Employee] SET  MULTI_USER 
+GO
+ALTER DATABASE [Employee] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [Employee] SET DB_CHAINING OFF 
+USE [Employee]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Project]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[Project](
+	[Pname] [varchar](15) NOT NULL,
+	[Pnumber] [int] NOT NULL,
+	[Plocation] [varchar](15) NULL,
+	[Dnum] [int] NOT NULL,
+ CONSTRAINT [Project_PK] PRIMARY KEY CLUSTERED 
+(
+	[Pnumber] ASC
+)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Works_On]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[Works_On](
+	[Essn] [char](9) NOT NULL,
+	[Pno] [int] NOT NULL,
+	[Hours] [int] NULL,
+ CONSTRAINT [Works_On_PK] PRIMARY KEY CLUSTERED 
+(
+	[Essn] ASC,
+	[Pno] ASC
+)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Dependent]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[Dependent](
+	[Essn] [char](9) NOT NULL,
+	[Dependent_name] [varchar](15) NOT NULL,
+	[Sex] [char](1) NULL,
+	[Bdate] [datetime] NULL,
+	[Relationship] [varchar](8) NULL,
+ CONSTRAINT [Dependent_PK] PRIMARY KEY CLUSTERED 
+(
+	[Essn] ASC,
+	[Dependent_name] ASC
+)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Employee]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[Employee](
+	[Fname] [varchar](15) NOT NULL,
+	[Minit] [char](1) NULL,
+	[Lname] [varchar](15) NOT NULL,
+	[Ssn] [char](9) NOT NULL,
+	[Bdate] [datetime] NULL,
+	[Address] [varchar](30) NULL,
+	[Sex] [char](1) NULL,
+	[Salary] [int] NULL,
+	[Super_ssn] [char](9) NULL,
+	[Dno] [int] NOT NULL,
+ CONSTRAINT [Employee_PK] PRIMARY KEY CLUSTERED 
+(
+	[Ssn] ASC
+)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Department]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[Department](
+	[Dname] [varchar](15) NOT NULL,
+	[DNumber] [int] NOT NULL,
+	[MgrSsn] [char](9) NOT NULL,
+	[MgrStartDate] [datetime] NULL,
+ CONSTRAINT [Department_PK] PRIMARY KEY CLUSTERED 
+(
+	[DNumber] ASC
+)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Dept_Locations]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[Dept_Locations](
+	[Dnumber] [int] NOT NULL,
+	[Dlocation] [varchar](15) NOT NULL,
+ CONSTRAINT [Dept_Locations_PK] PRIMARY KEY CLUSTERED 
+(
+	[Dnumber] ASC,
+	[Dlocation] ASC
+)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END

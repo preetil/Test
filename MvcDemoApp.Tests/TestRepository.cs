@@ -23,7 +23,7 @@ namespace MvcDemoApp.Tests
                            new Employee
                                {
                                    Fname = "John",
-                                   Lname = "John",
+                                   Lname = "Doe",
                                    Address = "1234 Street, #B234, Cleveland Oh",
                                    Bdate = new DateTime(1980, 1, 1),
                                    Minit = "S",

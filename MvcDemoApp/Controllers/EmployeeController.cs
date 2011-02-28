@@ -24,8 +24,8 @@ namespace MvcDemoApp.Controllers
             //Automaper configuration to map viewmodel entity to domain entity
             AutoMapper.Mapper.CreateMap<EditEmployeeViewModel, Employee>();
             //Type of 
-            AutoMapper.Mapper.CreateMap<string, char>().ConvertUsing(x => Convert.ToChar(x));
-            AutoMapper.Mapper.CreateMap<char, string>().ConvertUsing(x => Convert.ToString(x));
+            AutoMapper.Mapper.CreateMap<string, char>().ConvertUsing(x => x!= null?Convert.ToChar(x):' ');
+            //AutoMapper.Mapper.CreateMap<char, string>().ConvertUsing(x => x!= null?Convert.ToString(x):null);
  
         }
 
@@ -46,7 +46,7 @@ namespace MvcDemoApp.Controllers
 
         
         [HttpGet]
-        public ActionResult EditEmployee(string essn)
+        public ViewResult EditEmployee(string essn)
         {
             //Get employee entity  with given ssn from the repository
             var employee = _repository.GetEmployee( essn);
@@ -67,7 +67,7 @@ namespace MvcDemoApp.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View(editEmployeeViewModel);
+                return View("EditEmployee",editEmployeeViewModel);
             }
             else
             {
@@ -81,7 +81,7 @@ namespace MvcDemoApp.Controllers
             }
 
 
-            return (View());
+            
             return RedirectToAction("Index");
         }
 

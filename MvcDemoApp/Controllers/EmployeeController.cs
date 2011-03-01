@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using MvcDemoApp.DataService;
 using MvcDemoApp.Models;
 
@@ -8,25 +9,23 @@ namespace MvcDemoApp.Controllers
 {
     public class EmployeeController : Controller
     {
-        private IEmployeeRepository _repository;
+        private readonly IEmployeeRepository _repository;
 
-        public EmployeeController():this(new EmployeeRepository())
+        public EmployeeController() : this(new EmployeeRepository())
         {
-           
-       }
+        }
 
-        public EmployeeController(IEmployeeRepository employeeRepository )
+        public EmployeeController(IEmployeeRepository employeeRepository)
         {
             _repository = employeeRepository;
 
             //Automapper configuration to map domain entity to viewmodel entity
-            AutoMapper.Mapper.CreateMap<Employee, EditEmployeeViewModel>();
+            Mapper.CreateMap<Employee, EmployeeViewModel>();
             //Automaper configuration to map viewmodel entity to domain entity
-            AutoMapper.Mapper.CreateMap<EditEmployeeViewModel, Employee>();
+            Mapper.CreateMap<EmployeeViewModel, Employee>();
             //Type of 
-            AutoMapper.Mapper.CreateMap<string, char>().ConvertUsing(x => x!= null?Convert.ToChar(x):' ');
+            Mapper.CreateMap<string, char>().ConvertUsing(x => x != null ? Convert.ToChar(x) : ' ');
             //AutoMapper.Mapper.CreateMap<char, string>().ConvertUsing(x => x!= null?Convert.ToString(x):null);
- 
         }
 
         public ViewResult Index()
@@ -39,49 +38,49 @@ namespace MvcDemoApp.Controllers
 
         public JsonResult GetEmployeeList()
         {
-            var employeeList = _repository.GetAllEmployees();
+            IQueryable<Employee> employeeList = _repository.GetAllEmployees();
 
             return Json(employeeList);
         }
 
-        
+
+
+
+
         [HttpGet]
         public ViewResult EditEmployee(string essn)
         {
             //Get employee entity  with given ssn from the repository
-            var employee = _repository.GetEmployee( essn);
+            Employee employee = _repository.GetEmployee(essn);
             //Map domain entity with EmployeeViewModel
-            var editEmployeeViewModel = AutoMapper.Mapper.Map<Employee,EditEmployeeViewModel>(employee);
+            EmployeeViewModel employeeViewModel = Mapper.Map<Employee, EmployeeViewModel>(employee);
 
-            return View("EditEmployee", editEmployeeViewModel);
-
+            return View("EditEmployee", employeeViewModel);
         }
 
 
-
         [HttpPost]
-        public ActionResult EditEmployee(EditEmployeeViewModel editEmployeeViewModel)
+        public ActionResult EditEmployee(EmployeeViewModel employeeViewModel)
         {
-            if (editEmployeeViewModel == null)
+            if (employeeViewModel == null)
                 return View("Error");
 
             if (!ModelState.IsValid)
             {
-                return View("EditEmployee",editEmployeeViewModel);
+                return View("EditEmployee", employeeViewModel);
             }
             else
             {
-                var employee = _repository.GetEmployee(editEmployeeViewModel.Ssn);
+                Employee employee = _repository.GetEmployee(employeeViewModel.Ssn);
 
                 //Map ViewModel object to domain object
-                employee = AutoMapper.Mapper.Map<EditEmployeeViewModel, Employee>(editEmployeeViewModel);
+                employee = Mapper.Map<EmployeeViewModel, Employee>(employeeViewModel);
 
-               
+
                 _repository.Save();
             }
 
 
-            
             return RedirectToAction("Index");
         }
 
@@ -95,5 +94,31 @@ namespace MvcDemoApp.Controllers
         }
 
 
+        [HttpGet]
+        public ViewResult AddEmployee()
+        {
+            var employee = new EmployeeViewModel();
+            return View("AddEmployee", employee);
+
+        }
+
+        [HttpPost]
+        public ActionResult AddEmployee(EmployeeViewModel employeeViewModel )
+        {
+            if (employeeViewModel == null)
+                return View("Error");
+            if (!ModelState.IsValid)
+            {
+                return View("AddEmployee", employeeViewModel);
+
+            }
+
+            var employee = Mapper.Map<EmployeeViewModel, Employee>(employeeViewModel);
+            _repository.Add(employee);
+            _repository.Save();
+            return RedirectToAction("Index");
+        }
+
+    
     }
 }

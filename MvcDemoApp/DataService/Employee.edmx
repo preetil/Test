@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="EmployeeModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2006/04/edm/ssdl">
+      <Schema Namespace="EmployeeModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="EmployeeModelStoreContainer">
-          <EntitySet Name="Department" EntityType="EmployeeModel.Store.Department" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Dependent" EntityType="EmployeeModel.Store.Dependent" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Dept_Locations" EntityType="EmployeeModel.Store.Dept_Locations" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Employee" EntityType="EmployeeModel.Store.Employee" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Project" EntityType="EmployeeModel.Store.Project" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Works_On" EntityType="EmployeeModel.Store.Works_On" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Department" EntityType="EmployeeModel.Store.Department" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Dependent" EntityType="EmployeeModel.Store.Dependent" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Dept_Locations" EntityType="EmployeeModel.Store.Dept_Locations" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Employee" EntityType="EmployeeModel.Store.Employee" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Project" EntityType="EmployeeModel.Store.Project" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Works_On" EntityType="EmployeeModel.Store.Works_On" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
         </EntityContainer>
         <EntityType Name="Department">
           <Key>
@@ -78,7 +78,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="EmployeeModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
+      <Schema Namespace="EmployeeModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="EmployeeEntities">
           <EntitySet Name="Departments" EntityType="EmployeeModel.Department" />
           <EntitySet Name="Dependents" EntityType="EmployeeModel.Dependent" />
@@ -152,7 +152,7 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="urn:schemas-microsoft-com:windows:storage:mapping:CS">
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="EmployeeModelStoreContainer" CdmEntityContainer="EmployeeEntities">
           <EntitySetMapping Name="Departments"><EntityTypeMapping TypeName="EmployeeModel.Department"><MappingFragment StoreEntitySet="Department">
             <ScalarProperty Name="Dname" ColumnName="Dname" />
@@ -199,7 +199,7 @@
     </edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
-  <Designer xmlns="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
     <Connection>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />

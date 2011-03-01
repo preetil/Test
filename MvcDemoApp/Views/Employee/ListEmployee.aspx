@@ -1,11 +1,9 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<MvcDemoApp.Models.EmployeeViewModel>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<MvcDemoApp.Models.ListEmployeeViewModel>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     EmployeeList
 </asp:Content>
-
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
     <script type="text/javascript">
 
         $(document).ready(function () {
@@ -14,6 +12,7 @@
             // Initialize URL properties
             employeeProcessor.GetEmployeesUrl = '<%=Url.Action("GetEmployeeList","Employee") %>';
             employeeProcessor.EditEmployeeUrl = '<%=Url.Action("EditEmployee", "Employee") %>';
+            employeeProcessor.AddEmployeeUrl = '<%=Url.Action("AddEmployee", "Employee") %>';
 
             employeeProcessor.getEmployeeData();
 
@@ -48,7 +47,7 @@
 
                    
                 </div>
-                    <div class="gridRowItem griColumndAddress">
+                    <div class="gridRowItem gridColumnAddress">
                     ${Address}
                 </div>
                    <div class="gridRowItem gridColumnSex">
@@ -90,11 +89,13 @@
             Soc No</div>
         <div class="gridHeaderRowItem gridColumnBdate withBorder">
             Birth Date</div>
-        <div class="gridHeaderRowItem gridColumnAddress withBorder ">
+        <div class="gridHeaderRowItem gridColumnAddress withBorder">
             Address
         </div>
         <div class="gridHeaderRowItem gridColumnSex withBorder">
             Sex</div>
+        <div class="gridHeaderRowItem gridColumnSalary withBorder">
+            Salary </div>
         <div class="gridHeaderRowItem gridColumnSuper_ssn withBorder">
             Supervisor Soc No</div>
         <div class="gridHeaderRowItem gridColumnDno">

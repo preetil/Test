@@ -73,6 +73,11 @@ this.editEmployee = function (essn) {
 }
 
 
+this.addEmployee = function () {
+
+    window.location.href = this.AddEmployeeUrl;
+
+}
 
     this.showWaiting = function (targetDiv) {
         // Clear out previous contents

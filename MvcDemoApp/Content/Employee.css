@@ -70,11 +70,11 @@ Employee Grid
 
 .gridColumnFname
 {
-    width: 100px;
+    width: 80px;
 }
 .gridColumnMinit
 {
-    width: 20px;
+    width: 50px;
 }
 .gridColumnLname
 {
@@ -90,9 +90,14 @@ Employee Grid
 }
 .gridColumnAddress
 {
-    width: 150px;
+    width: 175px;
 }
 
+
+.gridColumnSex
+{
+    width: 30px;
+}
 .gridColumnSalary
 {
     width: 100px;

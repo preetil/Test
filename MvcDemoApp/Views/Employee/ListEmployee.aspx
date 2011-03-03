@@ -13,6 +13,7 @@
             employeeProcessor.GetEmployeesUrl = '<%=Url.Action("GetEmployeeList","Employee") %>';
             employeeProcessor.EditEmployeeUrl = '<%=Url.Action("EditEmployee", "Employee") %>';
             employeeProcessor.AddEmployeeUrl = '<%=Url.Action("AddEmployee", "Employee") %>';
+            employeeProcessor.DeleteEmployeeUrl = '<%=Url.Action("DeleteEmployee", "Employee") %>';
 
             employeeProcessor.getEmployeeData();
 
@@ -66,6 +67,7 @@
 
                 <div class="gridRowItem gridColumnCommands">
                     <a href="#" onclick='employeeProcessor.editEmployee(${Ssn}); return false;'>[ Edit ]</a>
+                    <a href="#" onclick='employeeProcessor.deleteEmployee(${Ssn}); return false;'>[ Delete ]</a>
                        
                 </div>
                 <div style="clear:both"></div>

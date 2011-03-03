@@ -33,18 +33,15 @@ namespace MvcDemoApp.Controllers
             return View("ListEmployee", null);
         }
 
-        //
-        // GET: /Employee/
+     
+
 
         public JsonResult GetEmployeeList()
         {
-            IQueryable<Employee> employeeList = _repository.GetAllEmployees();
+            var employeeList = _repository.GetAllEmployees();
 
             return Json(employeeList);
         }
-
-
-
 
 
         [HttpGet]
@@ -85,11 +82,14 @@ namespace MvcDemoApp.Controllers
         }
 
 
-        [HttpPost]
+   
         public ActionResult DeleteEmployee(string essn)
         {
-            var employee = new Employee {Ssn = essn};
+            
+
+            var employee = _repository.GetEmployee(essn);
             _repository.Delete(employee);
+            _repository.Save();
             return RedirectToAction("Index");
         }
 
@@ -99,26 +99,22 @@ namespace MvcDemoApp.Controllers
         {
             var employee = new EmployeeViewModel();
             return View("AddEmployee", employee);
-
         }
 
         [HttpPost]
-        public ActionResult AddEmployee(EmployeeViewModel employeeViewModel )
+        public ActionResult AddEmployee(EmployeeViewModel employeeViewModel)
         {
             if (employeeViewModel == null)
                 return View("Error");
             if (!ModelState.IsValid)
             {
                 return View("AddEmployee", employeeViewModel);
-
             }
 
-            var employee = Mapper.Map<EmployeeViewModel, Employee>(employeeViewModel);
+            Employee employee = Mapper.Map<EmployeeViewModel, Employee>(employeeViewModel);
             _repository.Add(employee);
             _repository.Save();
             return RedirectToAction("Index");
         }
-
-    
     }
 }

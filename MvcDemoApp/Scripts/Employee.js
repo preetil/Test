@@ -79,6 +79,13 @@ this.addEmployee = function () {
 
 }
 
+
+this.deleteEmployee = function (essn) {
+
+    window.location.href = this.DeleteEmployeeUrl + "?essn=" + essn;
+}
+
+
     this.showWaiting = function (targetDiv) {
         // Clear out previous contents
         targetDiv.html('');

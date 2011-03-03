@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace MvcDemoApp.DataService
 {
     public class EmployeeRepository : IEmployeeRepository
     {
+        private readonly EmployeeEntities employeeEntities = new EmployeeEntities();
 
-        private EmployeeEntities employeeEntities = new EmployeeEntities();
+        #region IEmployeeRepository Members
 
         public IQueryable<Employee> GetAllEmployees()
         {
@@ -23,7 +22,6 @@ namespace MvcDemoApp.DataService
         public void Add(Employee employee)
         {
             employeeEntities.AddObject("Employees", employee);
-
         }
 
         public void Delete(Employee employee)
@@ -33,7 +31,16 @@ namespace MvcDemoApp.DataService
 
         public void Save()
         {
-            employeeEntities.SaveChanges();
+            try
+            {
+                employeeEntities.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                //log any error to log file
+            }
         }
+
+        #endregion
     }
 }

@@ -594,8 +594,7 @@ namespace MvcDemoApp.DataService
     [EdmEntityTypeAttribute(NamespaceName="EmployeeModel", Name="Employee")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class 
-        Employee : EntityObject
+    public partial class Employee : EntityObject
     {
         #region Factory Method
     

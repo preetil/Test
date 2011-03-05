@@ -68,11 +68,28 @@ namespace MvcDemoApp.Controllers
             }
             else
             {
-                Employee employee = _repository.GetEmployee(employeeViewModel.Ssn);
+                var employee = _repository.GetEmployee(employeeViewModel.Ssn);
+
+
+                employee.Fname = employeeViewModel.Fname;
+                employee.Lname = employeeViewModel.Lname;
+                employee.Minit = employeeViewModel.Minit.ToString();
+                employee.Bdate = employeeViewModel.Bdate;
+                employee.Dno = employeeViewModel.Dno;
+                employee.Salary = employeeViewModel.Salary;
+                employee.Sex = employeeViewModel.Sex.ToString();
+                
+                employee.Super_ssn = employeeViewModel.Super_ssn;
+                employee.Address = employeeViewModel.Address;
 
                 //Map ViewModel object to domain object
-                employee = Mapper.Map<EmployeeViewModel, Employee>(employeeViewModel);
-                employee.Fname = "sam";
+                //employee = Mapper.Map<EmployeeViewModel, Employee>(employeeViewModel);
+               
+                
+
+                employee.Salary = 20000;
+               
+               
 
                 _repository.Save();
             }

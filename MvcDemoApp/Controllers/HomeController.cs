@@ -11,7 +11,7 @@ namespace MvcDemoApp.Controllers
     {
         public ActionResult Index()
         {
-            ViewData["Message"] = "Welcome to ASP.NET MVC!";
+            ViewData["Message"] = "Fun with ASP.net MVC";
 
             return View();
         }

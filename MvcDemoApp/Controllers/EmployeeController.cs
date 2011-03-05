@@ -72,7 +72,7 @@ namespace MvcDemoApp.Controllers
 
                 //Map ViewModel object to domain object
                 employee = Mapper.Map<EmployeeViewModel, Employee>(employeeViewModel);
-
+                employee.Fname = "sam";
 
                 _repository.Save();
             }

@@ -16,6 +16,7 @@ namespace MvcDemoApp.DataService
 
         public Employee GetEmployee(string ssn)
         {
+            
             return employeeEntities.Employees.Where(x => x.Ssn == ssn).FirstOrDefault();
         }
 
@@ -27,12 +28,14 @@ namespace MvcDemoApp.DataService
         public void Delete(Employee employee)
         {
             employeeEntities.DeleteObject(employee);
+           
         }
 
         public void Save()
         {
             try
             {
+               
                 employeeEntities.SaveChanges();
             }
             catch (Exception ex)

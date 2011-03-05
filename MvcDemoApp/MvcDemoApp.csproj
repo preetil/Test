@@ -90,8 +90,10 @@
     <Content Include="Scripts\Employee.js" />
     <Content Include="Scripts\jquery.json.js" />
     <Content Include="Scripts\jquery.tmpl.js" />
+    <Content Include="Views\Employee\AddEmployee.aspx" />
     <Content Include="Views\Employee\EditEmployee.aspx" />
     <Content Include="Views\Employee\ListEmployee.aspx" />
+    <Content Include="Views\Shared\EmployeeData.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -157,9 +159,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Employee\AddEmployee.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
